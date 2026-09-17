@@ -19,6 +19,9 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.JTextArea;
 
 public class Main {
 
@@ -34,6 +37,7 @@ public class Main {
 	private JTextField lett6;
 	private JTextField lett7;
 	private JButton btnGo;
+	private JScrollPane scrollPane;
 
 	/**
 	 * Launch the application.
@@ -64,27 +68,27 @@ public class Main {
 	private void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(192, 192, 192));
-		frame.setBounds(100, 100, 446, 540);
+		frame.setBounds(100, 100, 446, 351);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(10, 11, 411, 382);
-		frame.getContentPane().add(panel);
-		panel.setLayout(null);
-		
-		JLabel swOutput = new JLabel("Your list of scrabble words will appear here.");
-		swOutput.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		swOutput.setVerticalAlignment(SwingConstants.TOP);
-		swOutput.setBounds(10, 11, 391, 360);
-		panel.add(swOutput);
 		
 		lett1 = new JTextField();
 		lett1.setHorizontalAlignment(SwingConstants.CENTER);
 		lett1.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		lett1.setBounds(10, 440, 50, 50);
+		lett1.setBounds(10, 248, 50, 50);
 		frame.getContentPane().add(lett1);
 		lett1.setColumns(10);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBounds(10, 11, 411, 192);
+		frame.getContentPane().add(scrollPane);
+		
+		JTextArea swOutput = new JTextArea();
+		swOutput.setLineWrap(true);
+		swOutput.setText("Your Scrabble words will appear here: ");
+		scrollPane.setViewportView(swOutput);
 		
 		JButton btnGen = new JButton("Random Letters");
 		btnGen.addActionListener(new ActionListener() {
@@ -100,49 +104,49 @@ public class Main {
 				lett7.setText(String.valueOf(letters[6]));
 			}
 		});
-		btnGen.setBounds(10, 406, 200, 23);
+		btnGen.setBounds(10, 214, 200, 23);
 		frame.getContentPane().add(btnGen);
 		
 		lett2 = new JTextField();
 		lett2.setHorizontalAlignment(SwingConstants.CENTER);
 		lett2.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lett2.setColumns(10);
-		lett2.setBounds(70, 440, 50, 50);
+		lett2.setBounds(70, 248, 50, 50);
 		frame.getContentPane().add(lett2);
 		
 		lett3 = new JTextField();
 		lett3.setHorizontalAlignment(SwingConstants.CENTER);
 		lett3.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lett3.setColumns(10);
-		lett3.setBounds(130, 440, 50, 50);
+		lett3.setBounds(130, 248, 50, 50);
 		frame.getContentPane().add(lett3);
 		
 		lett4 = new JTextField();
 		lett4.setHorizontalAlignment(SwingConstants.CENTER);
 		lett4.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lett4.setColumns(10);
-		lett4.setBounds(190, 440, 50, 50);
+		lett4.setBounds(190, 248, 50, 50);
 		frame.getContentPane().add(lett4);
 		
 		lett5 = new JTextField();
 		lett5.setHorizontalAlignment(SwingConstants.CENTER);
 		lett5.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lett5.setColumns(10);
-		lett5.setBounds(250, 440, 50, 50);
+		lett5.setBounds(250, 248, 50, 50);
 		frame.getContentPane().add(lett5);
 		
 		lett6 = new JTextField();
 		lett6.setHorizontalAlignment(SwingConstants.CENTER);
 		lett6.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lett6.setColumns(10);
-		lett6.setBounds(310, 440, 50, 50);
+		lett6.setBounds(310, 248, 50, 50);
 		frame.getContentPane().add(lett6);
 		
 		lett7 = new JTextField();
 		lett7.setHorizontalAlignment(SwingConstants.CENTER);
 		lett7.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lett7.setColumns(10);
-		lett7.setBounds(371, 440, 50, 50);
+		lett7.setBounds(371, 248, 50, 50);
 		frame.getContentPane().add(lett7);
 		
 		btnGo = new JButton("Generate Words");
@@ -175,11 +179,12 @@ public class Main {
 					}
 					sb.append(word).append(", ");
 				}
-				swOutput.setText("<html>" + sb.toString().replaceAll("\n", "<br>") + "</html>");
+				swOutput.setText(sb.toString().replaceAll("\n", "<br>"));
 			}
 		});
-		btnGo.setBounds(221, 407, 200, 23);
+		btnGo.setBounds(221, 215, 200, 23);
 		frame.getContentPane().add(btnGo);
+		
 		
 		
 		// Add a DocumentListener to each tile to automatically transfer focus to the next JTextField when a letter is entered
